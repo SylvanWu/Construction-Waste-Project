@@ -1,0 +1,74 @@
+# MIxTogether 默认配置文件
+
+# 模型配置
+models:
+  yolo_model_path: "checkpoints/last.pt"
+  volume_model_path: "checkpoints/best_strong_training.pth"
+  device: "auto"  # auto, cuda, cpu
+
+# 检测配置
+detection:
+  confidence_threshold: 0.5
+  bin_class_id: 0
+
+# 跟踪配置
+tracking:
+  max_distance: 50
+  disappear_frames: 5
+  iou_threshold: 0.3
+  use_iou_matching: true
+
+# 计数配置
+counting:
+  overlap_threshold: 0.1
+  use_center_point: true
+
+# 体积估测配置
+volume:
+  input_size: 448
+  max_volume: 100.0
+  estimate_every_frame: true
+  baseline_frame: "baseline/frame_000009.png"
+
+# 可视化配置
+visualization:
+  show_detection_boxes: true
+  show_roi: true
+  show_trajectories: true
+  show_volume_info: true
+  mask_alpha: 0.3
+  roi_alpha: 0.2
+
+# 摄像头配置
+camera:
+  camera_index: 0
+  width: 1280
+  height: 720
+  fps: 30
+
+# 输出配置
+output:
+  save_visualized_frames: true
+  save_video: true
+  video_fps: 10
+
+# 类别配置
+classes:
+  names:
+    - "bin"
+    - "plastic bag"
+    - "brick"
+    - "wood"
+    - "pipe"
+    - "bottle"
+    - "cardboard"
+  
+  colors:
+    - [0, 255, 0]      # bin - 绿色
+    - [255, 0, 0]      # plastic bag - 红色
+    - [139, 69, 19]    # brick - 棕色
+    - [0, 100, 0]      # wood - 深绿色
+    - [255, 255, 0]    # pipe - 黄色
+    - [0, 0, 255]      # bottle - 蓝色
+    - [255, 165, 0]    # cardboard - 橙色
+

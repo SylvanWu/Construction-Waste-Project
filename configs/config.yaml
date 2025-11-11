@@ -1,0 +1,75 @@
+# MIxTogether System Configuration File
+
+# Model Configuration
+models:
+  yolo_model_path: "checkpoints/yolov11_seg_best.pth"
+  volume_model_path: "checkpoints/volume_student_resnet18.pth"
+  device: "auto"  # auto, cuda, cpu
+
+# Input Configuration
+input:
+  image_dir: "datasets/test_sequence"
+  image_format: "png"
+
+# Output Configuration
+output:
+  output_dir: "results"
+  save_visualized_frames: true
+  save_video: true
+  video_fps: 10
+
+# Detection Configuration
+detection:
+  confidence_threshold: 0.25
+  iou_threshold: 0.7
+  bin_class_id: 0  # Class ID for bin
+
+# Tracking Configuration
+tracking:
+  max_distance: 20  # Maximum distance threshold (pixels) - stricter
+  disappear_frames: 15  # Frames before object disappears - more lenient
+  iou_threshold: 0.6  # IoU matching threshold - stricter
+  use_iou_matching: true
+
+# Counting Configuration (FSM)
+counting:
+  dwell_frames: 4  # Minimum frames inside bin to trigger event
+  cooldown_frames: 15  # Cooldown frames after event
+  overlap_threshold: 0.3  # IoU threshold for "inside bin"
+  use_center_point: true  # Use center point validation
+
+# Volume Estimation Configuration
+volume:
+  input_size: 448  # Input image size (448x448 for student model)
+  max_volume: 100.0  # Maximum capacity (liters)
+  estimate_every_frame: true  # Estimate volume on every frame
+  baseline_frame: "baseline/frame_000009.png"  # Empty bin reference
+
+# Visualization Configuration
+visualization:
+  show_detection_boxes: true
+  show_roi: true
+  show_trajectories: true
+  show_volume_info: true
+  mask_alpha: 0.3
+  roi_alpha: 0.2
+
+# Class Configuration
+classes:
+  names:
+    - "bin"         # 0
+    - "plastic bag" # 1
+    - "brick"       # 2
+    - "wood"        # 3
+    - "pipe"        # 4
+    - "bottle"      # 5
+    - "cardboard"   # 6
+  
+  colors:
+    - [0, 255, 0]      # bin - green
+    - [255, 0, 0]      # plastic bag - red
+    - [139, 69, 19]    # brick - brown
+    - [0, 100, 0]      # wood - dark green
+    - [255, 255, 0]    # pipe - yellow
+    - [0, 0, 255]      # bottle - blue
+    - [255, 165, 0]    # cardboard - orange
